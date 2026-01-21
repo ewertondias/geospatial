@@ -1,5 +1,6 @@
 package com.sccon.geospatial.person.adapter.out.persistence;
 
+import com.sccon.geospatial.person.adapter.out.persistence.assembler.PersonPersistenceAssembler;
 import com.sccon.geospatial.person.domain.model.Person;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
 import org.springframework.stereotype.Repository;
@@ -13,21 +14,31 @@ import java.util.concurrent.atomic.AtomicLong;
 @Repository
 public class PersonRepositoryAdapter implements PersonRepository {
 
-    private final Map<Long, Person> map = new ConcurrentHashMap<>();
-    private final AtomicLong idGenerator = new AtomicLong(3);
+    private final Map<Long, PersonEntity> map = new ConcurrentHashMap<>();
+    private final AtomicLong idGenerator = new AtomicLong(4);
 
     @Override
     public List<Person> findAll() {
-        return List.of();
+        return map.values().stream()
+            .map(PersonPersistenceAssembler::toDomain)
+            .toList();
     }
 
     @Override
-    public Optional<Person> save(Person person) {
-        map.put(person.id().value(), person);
+    public Person save(Person person) {
+        var id = person.id().value();
 
-        var newPerson = map.get(person.id().value());
+        if (id == null) {
+            id = idGenerator.get();
+        }
 
-        return Optional.of(newPerson);
+        var entity = PersonPersistenceAssembler.toEntity(id, person);
+
+        map.putIfAbsent(id, entity);
+
+        idGenerator.accumulateAndGet(id + 1, Math::max);
+
+        return PersonPersistenceAssembler.toDomain(entity);
     }
 
     @Override
@@ -36,13 +47,21 @@ public class PersonRepositoryAdapter implements PersonRepository {
     }
 
     @Override
-    public Optional<Person> update(Person person) {
-        return Optional.empty();
+    public Person update(Person person) {
+        return null;
     }
 
     @Override
-    public Person findById(Long id) {
-        return null;
+    public Optional<Person> findById(Long id) {
+        var personEntity = map.getOrDefault(id, null);
+
+        if (personEntity == null) {
+            return Optional.empty();
+        }
+
+        var person = PersonPersistenceAssembler.toDomain(personEntity);
+
+        return Optional.of(person);
     }
 
 }

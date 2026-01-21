@@ -4,8 +4,10 @@ import com.sccon.geospatial.person.domain.exception.PersonIdInvalidException;
 
 public record PersonId(Long value) {
 
-    public PersonId {
-        if (value == null) {
+    public static PersonId of(Long id) {
+        try {
+            return new PersonId(id);
+        } catch (IllegalArgumentException e) {
             throw new PersonIdInvalidException();
         }
     }

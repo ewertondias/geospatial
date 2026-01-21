@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI customOpeApi() {
+    public OpenAPI customOpeAPI() {
         var info = new Info()
             .title("Geospatial API")
             .description("This is the Geospatial API")

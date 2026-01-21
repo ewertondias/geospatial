@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface PersonRepository {
 
     List<Person> findAll();
-    Optional<Person> save(Person person);
+    Person save(Person person);
     void delete(Person person);
-    Optional<Person> update(Person person);
-    Person findById(Long id);
+    Person update(Person person);
+    Optional<Person> findById(Long id);
 
 }

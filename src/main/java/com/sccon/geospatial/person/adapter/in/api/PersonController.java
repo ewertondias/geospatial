@@ -6,8 +6,10 @@ import com.sccon.geospatial.person.adapter.in.api.dto.PersonAgeResponse;
 import com.sccon.geospatial.person.adapter.in.api.dto.PersonResponse;
 import com.sccon.geospatial.person.adapter.in.api.dto.PersonSalaryResponse;
 import com.sccon.geospatial.person.application.CreatePersonUseCase;
+import com.sccon.geospatial.person.application.GetAllPersonUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +22,20 @@ import java.util.List;
 @RequestMapping("/persons")
 public class PersonController implements PersonApiDoc {
 
+    private final GetAllPersonUseCase getAllPerson;
     private final CreatePersonUseCase createPerson;
 
-    public PersonController(CreatePersonUseCase createPerson) {
+    public PersonController(GetAllPersonUseCase getAllPerson, CreatePersonUseCase createPerson) {
+        this.getAllPerson = getAllPerson;
         this.createPerson = createPerson;
     }
 
     @Override
+    @GetMapping
     public ResponseEntity<List<PersonResponse>> getAll() {
-        return null;
+        var persons = getAllPerson.execute();
+
+        return ResponseEntity.ok(persons);
     }
 
     @Override
