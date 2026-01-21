@@ -5,12 +5,22 @@ import com.sccon.geospatial.person.adapter.in.api.dto.CreatePersonRequest;
 import com.sccon.geospatial.person.adapter.in.api.dto.PersonAgeResponse;
 import com.sccon.geospatial.person.adapter.in.api.dto.PersonResponse;
 import com.sccon.geospatial.person.adapter.in.api.dto.PersonSalaryResponse;
+import com.sccon.geospatial.person.adapter.in.api.dto.UpdateDetailPersonRequest;
+import com.sccon.geospatial.person.adapter.in.api.dto.UpdatePersonRequest;
 import com.sccon.geospatial.person.application.CreatePersonUseCase;
+import com.sccon.geospatial.person.application.DeletePersonUseCase;
 import com.sccon.geospatial.person.application.GetAllPersonUseCase;
+import com.sccon.geospatial.person.application.GetPersonByIdUseCase;
+import com.sccon.geospatial.person.application.UpdatePersonDetailUseCase;
+import com.sccon.geospatial.person.application.UpdatePersonUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,10 +34,18 @@ public class PersonController implements PersonApiDoc {
 
     private final GetAllPersonUseCase getAllPerson;
     private final CreatePersonUseCase createPerson;
+    private final DeletePersonUseCase deletePerson;
+    private final UpdatePersonUseCase updatePerson;
+    private final UpdatePersonDetailUseCase updatePersonDetail;
+    private final GetPersonByIdUseCase getPersonById;
 
-    public PersonController(GetAllPersonUseCase getAllPerson, CreatePersonUseCase createPerson) {
+    public PersonController(GetAllPersonUseCase getAllPerson, CreatePersonUseCase createPerson, DeletePersonUseCase deletePerson, UpdatePersonUseCase updatePerson, UpdatePersonDetailUseCase updatePersonDetail, GetPersonByIdUseCase getPersonById) {
         this.getAllPerson = getAllPerson;
         this.createPerson = createPerson;
+        this.deletePerson = deletePerson;
+        this.updatePerson = updatePerson;
+        this.updatePersonDetail = updatePersonDetail;
+        this.getPersonById = getPersonById;
     }
 
     @Override
@@ -53,23 +71,36 @@ public class PersonController implements PersonApiDoc {
     }
 
     @Override
-    public ResponseEntity<Void> delete() {
-        return null;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        deletePerson.execute(id);
+
+        return ResponseEntity.noContent()
+            .build();
     }
 
     @Override
-    public ResponseEntity<PersonResponse> update() {
-        return null;
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonResponse> update(@PathVariable Long id, @RequestBody @Valid UpdatePersonRequest request) {
+        var person = updatePerson.execute(id, request);
+
+        return ResponseEntity.ok(person);
     }
 
     @Override
-    public ResponseEntity<PersonResponse> updateDetail() {
-        return null;
+    @PatchMapping("/{id}")
+    public ResponseEntity<PersonResponse> updateDetail(@PathVariable Long id, @RequestBody @Valid UpdateDetailPersonRequest request) {
+        var person = updatePersonDetail.execute(id, request);
+
+        return ResponseEntity.ok(person);
     }
 
     @Override
-    public ResponseEntity<PersonResponse> getById() {
-        return null;
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonResponse> getById(@PathVariable Long id) {
+        var person = getPersonById.execute(id);
+
+        return ResponseEntity.ok(person);
     }
 
     @Override

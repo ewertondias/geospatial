@@ -5,6 +5,7 @@ import com.sccon.geospatial.person.adapter.in.api.dto.PersonResponse;
 import com.sccon.geospatial.person.application.CreatePersonUseCase;
 import com.sccon.geospatial.person.application.assembler.PersonAssembler;
 import com.sccon.geospatial.person.domain.exception.PersonAlreadyExistsException;
+import com.sccon.geospatial.person.domain.model.PersonId;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,8 @@ public class CreatePersonService implements CreatePersonUseCase {
     @Override
     public PersonResponse execute(CreatePersonRequest request) {
         if (request.id() != null) {
-            var existsPerson = repository.findById(request.id());
+            var personId = PersonId.of(request.id());
+            var existsPerson = repository.findById(personId);
 
             if (existsPerson.isPresent()) {
                 throw new PersonAlreadyExistsException(request.id().toString());
