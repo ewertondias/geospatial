@@ -10,6 +10,7 @@ import com.sccon.geospatial.person.adapter.in.api.dto.UpdatePersonRequest;
 import com.sccon.geospatial.person.application.CreatePersonUseCase;
 import com.sccon.geospatial.person.application.DeletePersonUseCase;
 import com.sccon.geospatial.person.application.GetAllPersonUseCase;
+import com.sccon.geospatial.person.application.GetPersonAgeByIdUseCase;
 import com.sccon.geospatial.person.application.GetPersonByIdUseCase;
 import com.sccon.geospatial.person.application.UpdatePersonDetailUseCase;
 import com.sccon.geospatial.person.application.UpdatePersonUseCase;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,15 +39,17 @@ public class PersonController implements PersonApiDoc {
     private final DeletePersonUseCase deletePerson;
     private final UpdatePersonUseCase updatePerson;
     private final UpdatePersonDetailUseCase updatePersonDetail;
-    private final GetPersonByIdUseCase getPersonById;
+    private final GetPersonByIdUseCase getPerson;
+    private final GetPersonAgeByIdUseCase getPersonAge;
 
-    public PersonController(GetAllPersonUseCase getAllPerson, CreatePersonUseCase createPerson, DeletePersonUseCase deletePerson, UpdatePersonUseCase updatePerson, UpdatePersonDetailUseCase updatePersonDetail, GetPersonByIdUseCase getPersonById) {
+    public PersonController(GetAllPersonUseCase getAllPerson, CreatePersonUseCase createPerson, DeletePersonUseCase deletePerson, UpdatePersonUseCase updatePerson, UpdatePersonDetailUseCase updatePersonDetail, GetPersonByIdUseCase getPerson, GetPersonAgeByIdUseCase getPersonAge) {
         this.getAllPerson = getAllPerson;
         this.createPerson = createPerson;
         this.deletePerson = deletePerson;
         this.updatePerson = updatePerson;
         this.updatePersonDetail = updatePersonDetail;
-        this.getPersonById = getPersonById;
+        this.getPerson = getPerson;
+        this.getPersonAge = getPersonAge;
     }
 
     @Override
@@ -98,18 +102,22 @@ public class PersonController implements PersonApiDoc {
     @Override
     @GetMapping("/{id}")
     public ResponseEntity<PersonResponse> getById(@PathVariable Long id) {
-        var person = getPersonById.execute(id);
+        var person = getPerson.execute(id);
 
         return ResponseEntity.ok(person);
     }
 
     @Override
-    public ResponseEntity<PersonAgeResponse> getAge() {
-        return null;
+    @GetMapping("/{id}/age")
+    public ResponseEntity<PersonAgeResponse> getAge(@PathVariable Long id, @RequestParam String output) {
+        var personAge = getPersonAge.execute(id, output);
+
+        return ResponseEntity.ok(personAge);
     }
 
     @Override
-    public ResponseEntity<PersonSalaryResponse> getSalary() {
+    @GetMapping("/{id}/salary")
+    public ResponseEntity<PersonSalaryResponse> getSalary(@PathVariable Long id) {
         return null;
     }
 

@@ -8,6 +8,7 @@ import com.sccon.geospatial.person.adapter.in.api.dto.UpdateDetailPersonRequest;
 import com.sccon.geospatial.person.adapter.in.api.dto.UpdatePersonRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -54,7 +55,7 @@ public interface PersonApiDoc {
         @ApiResponse(responseCode = "404", description = "Person not found", content = @Content(mediaType = "application/json")),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
     })
-    ResponseEntity<Void> delete(@Parameter(description = "Person id", required = true) Long id);
+    ResponseEntity<Void> delete(@Parameter(description = "Person id", required = true, in = ParameterIn.PATH) Long id);
 
     @Operation(summary = "Update a person",
         description = "Updates an existing person with the provided information"
@@ -68,7 +69,7 @@ public interface PersonApiDoc {
         @ApiResponse(responseCode = "404", description = "Person not found", content = @Content(mediaType = "application/json")),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
     })
-    ResponseEntity<PersonResponse> update(@Parameter(description = "Person id", required = true) Long id,
+    ResponseEntity<PersonResponse> update(@Parameter(description = "Person id", required = true, in = ParameterIn.PATH) Long id,
                                           UpdatePersonRequest request);
 
     @Operation(summary = "Update person details",
@@ -83,7 +84,7 @@ public interface PersonApiDoc {
         @ApiResponse(responseCode = "404", description = "Person not found", content = @Content(mediaType = "application/json")),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
     })
-    ResponseEntity<PersonResponse> updateDetail(@Parameter(description = "Person id", required = true) Long id,
+    ResponseEntity<PersonResponse> updateDetail(@Parameter(description = "Person id", required = true, in = ParameterIn.PATH) Long id,
                                                 UpdateDetailPersonRequest request);
 
     @Operation(summary = "Get person by ID",
@@ -97,7 +98,7 @@ public interface PersonApiDoc {
         @ApiResponse(responseCode = "404", description = "Person not found", content = @Content(mediaType = "application/json")),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
     })
-    ResponseEntity<PersonResponse> getById(@Parameter(description = "Person id", required = true) Long id);
+    ResponseEntity<PersonResponse> getById(@Parameter(description = "Person id", required = true, in = ParameterIn.PATH) Long id);
 
     @Operation(summary = "Get person age",
         description = "Retrieves the age of a person by their ID"
@@ -111,7 +112,12 @@ public interface PersonApiDoc {
         @ApiResponse(responseCode = "404", description = "Person not found", content = @Content(mediaType = "application/json")),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
     })
-    ResponseEntity<PersonAgeResponse> getAge();
+    ResponseEntity<PersonAgeResponse> getAge(@Parameter(description = "Person id", required = true, in = ParameterIn.PATH) Long id,
+                                             @Parameter(
+                                                 description = "Output format for the age", required = true, in = ParameterIn.QUERY,
+                                                 schema = @Schema(type = "string", example = "years", allowableValues = {"days", "months", "years"})
+                                             )
+                                             String output);
 
     @Operation(summary = "Get person salary",
         description = "Retrieves the salary of a person by their ID"
@@ -125,6 +131,6 @@ public interface PersonApiDoc {
         @ApiResponse(responseCode = "404", description = "Person not found", content = @Content(mediaType = "application/json")),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
     })
-    ResponseEntity<PersonSalaryResponse> getSalary();
+    ResponseEntity<PersonSalaryResponse> getSalary(@Parameter(description = "Person id", required = true) Long id);
 
 }
