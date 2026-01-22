@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public record UpdatePersonRequest(
     @Schema(description = "Person name", examples = "John Doe")
     @NotBlank(message = "{person.name.null}")
-    @Size(min = 3, max = 150, message = "{student.name.size}")
+    @Size(min = 3, max = 150, message = "{person.name.size}")
     String name,
 
     @Schema(description = "Person birthdate", examples = "1989-05-15")

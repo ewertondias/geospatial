@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public record UpdateDetailPersonRequest(
     @Schema(description = "Person name", examples = "John Doe")
-    @Size(min = 3, max = 150, message = "{student.name.size}")
+    @Size(min = 3, max = 150, message = "{person.name.size}")
     String name,
 
     @Schema(description = "Person birthdate", examples = "1989-05-15")
