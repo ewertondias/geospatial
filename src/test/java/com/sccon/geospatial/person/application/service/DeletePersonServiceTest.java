@@ -4,7 +4,7 @@ import com.sccon.geospatial.person.domain.exception.PersonNotFoundException;
 import com.sccon.geospatial.person.domain.model.Person;
 import com.sccon.geospatial.person.domain.model.PersonId;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,7 +34,7 @@ class DeletePersonServiceTest {
     @DisplayName("Should delete person successfully")
     void shouldDeletePersonSuccessfully() {
         var id = 1L;
-        var person = PersonFixture.createPersonWithId(id);
+        var person = PersonFactory.createPersonWithId(id);
 
         when(personRepository.findById(any(PersonId.class))).thenReturn(Optional.of(person));
 

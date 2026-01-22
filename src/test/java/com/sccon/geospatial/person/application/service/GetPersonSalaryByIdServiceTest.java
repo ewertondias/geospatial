@@ -3,7 +3,7 @@ package com.sccon.geospatial.person.application.service;
 import com.sccon.geospatial.person.domain.exception.PersonNotFoundException;
 import com.sccon.geospatial.person.domain.model.PersonId;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +37,7 @@ class GetPersonSalaryByIdServiceTest {
     void shouldReturnFullSalary() {
         var id = 1L;
         var hireDate = LocalDate.now().minusYears(2);
-        var person = PersonFixture.createPersonWithDates(LocalDate.of(1990, 1, 1), hireDate);
+        var person = PersonFactory.createPersonWithDates(LocalDate.of(1990, 1, 1), hireDate);
 
         ReflectionTestUtils.setField(getPersonSalaryByIdService, "minSalary", new BigDecimal("1000.00"));
         ReflectionTestUtils.setField(getPersonSalaryByIdService, "initialSalary", new BigDecimal("5000.00"));
@@ -59,7 +59,7 @@ class GetPersonSalaryByIdServiceTest {
     void shouldReturnMinSalary() {
         var id = 1L;
         var hireDate = LocalDate.now().minusYears(1);
-        var person = PersonFixture.createPersonWithDates(LocalDate.of(1990, 1, 1), hireDate);
+        var person = PersonFactory.createPersonWithDates(LocalDate.of(1990, 1, 1), hireDate);
 
         ReflectionTestUtils.setField(getPersonSalaryByIdService, "minSalary", new BigDecimal("1000.00"));
         ReflectionTestUtils.setField(getPersonSalaryByIdService, "initialSalary", new BigDecimal("5000.00"));

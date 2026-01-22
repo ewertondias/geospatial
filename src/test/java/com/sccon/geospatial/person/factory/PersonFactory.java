@@ -1,10 +1,10 @@
-package com.sccon.geospatial.person.fixture;
+package com.sccon.geospatial.person.factory;
 
 import com.sccon.geospatial.person.domain.model.Person;
 
 import java.time.LocalDate;
 
-public class PersonFixture {
+public class PersonFactory {
 
     public static Person createDefaultPerson() {
         return Person.create(

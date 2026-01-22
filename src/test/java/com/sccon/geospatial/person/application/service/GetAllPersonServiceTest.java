@@ -2,7 +2,7 @@ package com.sccon.geospatial.person.application.service;
 
 import com.sccon.geospatial.person.domain.model.Person;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ class GetAllPersonServiceTest {
     @Test
     @DisplayName("Should return all persons sorted by name")
     void shouldReturnAllPersonsSortedByName() {
-        var person1 = PersonFixture.createPersonWithId(1L);
+        var person1 = PersonFactory.createPersonWithId(1L);
         var person2 = Person.create(2L, "Alice Smith", person1.birthDate().value(), person1.hireDate().value());
         var person3 = Person.create(3L, "Bob Johnson", person1.birthDate().value(), person1.hireDate().value());
 

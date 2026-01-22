@@ -1,11 +1,9 @@
 package com.sccon.geospatial.person.application.service;
 
-import com.sccon.geospatial.person.adapter.in.api.dto.PersonResponse;
 import com.sccon.geospatial.person.domain.exception.PersonNotFoundException;
-import com.sccon.geospatial.person.domain.model.Person;
 import com.sccon.geospatial.person.domain.model.PersonId;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +33,7 @@ class GetPersonByIdServiceTest {
     @DisplayName("Should return person when found")
     void shouldReturnPersonWhenFound() {
         var id = 1L;
-        var person = PersonFixture.createPersonWithId(id);
+        var person = PersonFactory.createPersonWithId(id);
 
         when(personRepository.findById(any(PersonId.class))).thenReturn(Optional.of(person));
 

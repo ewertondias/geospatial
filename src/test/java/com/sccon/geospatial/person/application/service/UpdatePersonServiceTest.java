@@ -5,7 +5,7 @@ import com.sccon.geospatial.person.domain.exception.PersonNotFoundException;
 import com.sccon.geospatial.person.domain.model.Person;
 import com.sccon.geospatial.person.domain.model.PersonId;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +38,7 @@ class UpdatePersonServiceTest {
     void shouldUpdatePersonSuccessfully() {
 
         var id = 1L;
-        var existingPerson = PersonFixture.createPersonWithId(id);
+        var existingPerson = PersonFactory.createPersonWithId(id);
         var request = new UpdatePersonRequest(
             "Jane Doe",
             LocalDate.of(1995, 5, 15),

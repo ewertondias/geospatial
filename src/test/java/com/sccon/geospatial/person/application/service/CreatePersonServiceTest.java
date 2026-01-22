@@ -5,7 +5,7 @@ import com.sccon.geospatial.person.domain.exception.PersonAlreadyExistsException
 import com.sccon.geospatial.person.domain.model.Person;
 import com.sccon.geospatial.person.domain.model.PersonId;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,7 +43,7 @@ class CreatePersonServiceTest {
             LocalDate.of(2020, 1, 1)
         );
 
-        var savedPerson = PersonFixture.createDefaultPerson();
+        var savedPerson = PersonFactory.createDefaultPerson();
 
         when(personRepository.save(any(Person.class))).thenReturn(savedPerson);
 
@@ -67,7 +67,7 @@ class CreatePersonServiceTest {
             LocalDate.of(2020, 1, 1)
         );
 
-        var savedPerson = PersonFixture.createPersonWithId(1L);
+        var savedPerson = PersonFactory.createPersonWithId(1L);
 
         when(personRepository.findById(any(PersonId.class))).thenReturn(Optional.empty());
         when(personRepository.save(any(Person.class))).thenReturn(savedPerson);
@@ -91,7 +91,7 @@ class CreatePersonServiceTest {
             LocalDate.of(2020, 1, 1)
         );
 
-        var existingPerson = PersonFixture.createPersonWithId(1L);
+        var existingPerson = PersonFactory.createPersonWithId(1L);
 
         when(personRepository.findById(any(PersonId.class))).thenReturn(Optional.of(existingPerson));
 

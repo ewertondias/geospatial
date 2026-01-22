@@ -3,7 +3,7 @@ package com.sccon.geospatial.person.application.service;
 import com.sccon.geospatial.person.domain.exception.PersonNotFoundException;
 import com.sccon.geospatial.person.domain.model.PersonId;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +35,7 @@ class GetPersonAgeByIdServiceTest {
     void shouldReturnAgeInYears() {
         var id = 1L;
         var birthDate = LocalDate.now().minusYears(30);
-        var person = PersonFixture.createPersonWithDates(birthDate, LocalDate.now().minusYears(5));
+        var person = PersonFactory.createPersonWithDates(birthDate, LocalDate.now().minusYears(5));
 
         when(personRepository.findById(any(PersonId.class))).thenReturn(Optional.of(person));
 
@@ -51,7 +51,7 @@ class GetPersonAgeByIdServiceTest {
     void shouldReturnAgeInMonths() {
         var id = 1L;
         var birthDate = LocalDate.now().minusMonths(12);
-        var person = PersonFixture.createPersonWithDates(birthDate, LocalDate.now().minusMonths(6));
+        var person = PersonFactory.createPersonWithDates(birthDate, LocalDate.now().minusMonths(6));
 
         when(personRepository.findById(any(PersonId.class))).thenReturn(Optional.of(person));
 
@@ -67,7 +67,7 @@ class GetPersonAgeByIdServiceTest {
     void shouldReturnAgeInDays() {
         var id = 1L;
         var birthDate = LocalDate.now().minusDays(365);
-        var person = PersonFixture.createPersonWithDates(birthDate, LocalDate.now().minusDays(180));
+        var person = PersonFactory.createPersonWithDates(birthDate, LocalDate.now().minusDays(180));
 
         when(personRepository.findById(any(PersonId.class))).thenReturn(Optional.of(person));
 

@@ -1,7 +1,7 @@
 package com.sccon.geospatial.person.domain.model;
 
 import com.sccon.geospatial.person.domain.exception.PersonHireDateInvalidException;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,7 +48,7 @@ class PersonTest {
     @Test
     @DisplayName("Should update person successfully")
     void shouldUpdatePersonSuccessfully() {
-        var person = PersonFixture.createDefaultPerson();
+        var person = PersonFactory.createDefaultPerson();
         var newName = "Jane Doe";
         var newBirthDate = LocalDate.of(1995, 5, 15);
         var newHireDate = LocalDate.of(2021, 6, 20);
@@ -65,7 +65,7 @@ class PersonTest {
     @Test
     @DisplayName("Should update person detail with partial data")
     void shouldUpdatePersonDetailWithPartialData() {
-        var person = PersonFixture.createDefaultPerson();
+        var person = PersonFactory.createDefaultPerson();
         var newName = "Jane Doe";
 
         var updatedPerson = person.updateDetail(newName, null, null);
@@ -80,7 +80,7 @@ class PersonTest {
     @Test
     @DisplayName("Should update person detail with null name keeping original")
     void shouldUpdatePersonDetailWithNullNameKeepingOriginal() {
-        var person = PersonFixture.createDefaultPerson();
+        var person = PersonFactory.createDefaultPerson();
         var originalName = person.name();
         var newBirthDate = LocalDate.of(1995, 5, 15);
 

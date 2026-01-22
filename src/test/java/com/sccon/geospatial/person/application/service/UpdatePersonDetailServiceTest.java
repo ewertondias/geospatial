@@ -1,12 +1,11 @@
 package com.sccon.geospatial.person.application.service;
 
-import com.sccon.geospatial.person.adapter.in.api.dto.PersonResponse;
 import com.sccon.geospatial.person.adapter.in.api.dto.UpdateDetailPersonRequest;
 import com.sccon.geospatial.person.domain.exception.PersonNotFoundException;
 import com.sccon.geospatial.person.domain.model.Person;
 import com.sccon.geospatial.person.domain.model.PersonId;
 import com.sccon.geospatial.person.domain.port.PersonRepository;
-import com.sccon.geospatial.person.fixture.PersonFixture;
+import com.sccon.geospatial.person.factory.PersonFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,7 +37,7 @@ class UpdatePersonDetailServiceTest {
     @DisplayName("Should update person detail with partial data")
     void shouldUpdatePersonDetailWithPartialData() {
         var id = 1L;
-        var existingPerson = PersonFixture.createPersonWithId(id);
+        var existingPerson = PersonFactory.createPersonWithId(id);
         var request = new UpdateDetailPersonRequest(
             "Jane Doe",
             null,
@@ -66,7 +65,7 @@ class UpdatePersonDetailServiceTest {
     @DisplayName("Should update person detail keeping original name when name is null")
     void shouldUpdatePersonDetailKeepingOriginalNameWhenNameIsNull() {
         var id = 1L;
-        var existingPerson = PersonFixture.createPersonWithId(id);
+        var existingPerson = PersonFactory.createPersonWithId(id);
         var newBirthDate = LocalDate.of(1995, 5, 15);
         var request = new UpdateDetailPersonRequest(
             null,
