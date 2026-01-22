@@ -2,7 +2,7 @@
 
 API REST para gerenciamento de pessoas com funcionalidades de cálculo de idade e salário.
 
-## 📋 Sobre a API
+## Sobre a API
 
 A API Geospatial oferece endpoints para gerenciar pessoas, permitindo criar, consultar, atualizar e deletar registros. Além disso, fornece funcionalidades especiais para calcular a idade de uma pessoa em diferentes unidades (anos, meses ou dias) e calcular o salário baseado no tempo de contratação.
 
@@ -19,7 +19,7 @@ A API Geospatial oferece endpoints para gerenciar pessoas, permitindo criar, con
 
 A documentação completa da API está disponível via Swagger UI quando o projeto estiver em execução em: `http://localhost:8080/swagger-ui.html`
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Java 21** - Linguagem de programação
 - **Spring Boot 4.0.1** - Framework para desenvolvimento de aplicações Java
@@ -29,7 +29,7 @@ A documentação completa da API está disponível via Swagger UI quando o proje
 - **Mockito** - Framework para criação de mocks em testes
 - **Maven** - Gerenciador de dependências e build
 
-## 🚀 Como Rodar o Projeto
+## Como Rodar o Projeto
 
 ### Pré-requisitos
 
@@ -61,7 +61,7 @@ java -jar target/geospatial-0.0.1-SNAPSHOT.jar
 
 4. A aplicação estará disponível em: `http://localhost:8080`
 
-## 🧪 Como Rodar os Testes
+## Como Rodar os Testes
 
 Para executar todos os testes do projeto:
 
