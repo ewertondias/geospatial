@@ -6,6 +6,7 @@ import com.sccon.geospatial.person.domain.exception.PersonBirthDateInvalidExcept
 import com.sccon.geospatial.person.domain.exception.PersonHireDateInvalidException;
 import com.sccon.geospatial.person.domain.exception.PersonIdInvalidException;
 import com.sccon.geospatial.person.domain.exception.PersonNotFoundException;
+import com.sccon.geospatial.person.domain.exception.PersonSalaryOutputInvalidException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class PersonExceptionHandler {
         log.error("Person age output invalid: {}", ex.getMessage());
 
         var httpStatus = HttpStatus.BAD_REQUEST;
-        var message = String.format("The value output '%s' is invalid.", ex.getMessage());
+        var message = String.format("The value output '%s' is invalid for age.", ex.getMessage());
         var problemDetail = ProblemDetail.forStatusAndDetail(httpStatus, message);
 
         return ResponseEntity.status(httpStatus)
@@ -85,6 +86,18 @@ public class PersonExceptionHandler {
 
         var httpStatus = HttpStatus.NOT_FOUND;
         var message = String.format("Person with id '%s' does not exist.", ex.getMessage());
+        var problemDetail = ProblemDetail.forStatusAndDetail(httpStatus, message);
+
+        return ResponseEntity.status(httpStatus)
+            .body(problemDetail);
+    }
+
+    @ExceptionHandler(PersonSalaryOutputInvalidException.class)
+    public ResponseEntity<ProblemDetail> handlePersonSalaryOutputInvalid(PersonSalaryOutputInvalidException ex) {
+        log.error("Person salary output invalid: {}", ex.getMessage());
+
+        var httpStatus = HttpStatus.BAD_REQUEST;
+        var message = String.format("The value output '%s' is invalid for salary.", ex.getMessage());
         var problemDetail = ProblemDetail.forStatusAndDetail(httpStatus, message);
 
         return ResponseEntity.status(httpStatus)
