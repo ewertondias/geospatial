@@ -40,7 +40,7 @@ A documentação completa da API está disponível via Swagger UI quando o proje
 
 1. Clone o repositório:
 ```bash
-git clone <repository-url>
+git clone git@github.com:ewertondias/geospatial.git
 cd geospatial
 ```
 
