@@ -53,6 +53,7 @@ class DeletePersonServiceTest {
 
         assertThatThrownBy(() -> deletePersonService.execute(id))
             .isInstanceOf(PersonNotFoundException.class);
+
         verify(personRepository).findById(any(PersonId.class));
         verify(personRepository, never()).delete(any(Person.class));
     }

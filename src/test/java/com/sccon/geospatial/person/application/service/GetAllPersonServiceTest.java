@@ -43,6 +43,7 @@ class GetAllPersonServiceTest {
         assertThat(response.get(0).name()).isEqualTo("Alice Smith");
         assertThat(response.get(1).name()).isEqualTo("Bob Johnson");
         assertThat(response.get(2).name()).isEqualTo("John Doe");
+
         verify(personRepository).findAll();
     }
 
