@@ -14,6 +14,6 @@ public record PersonResponse(
     @Schema(description = "Person birthdate", examples = "1989-05-15")
     LocalDate birthDate,
 
-    @Schema(description = "Person admission date", examples = "2010-01-01")
-    LocalDate admissionDate) {
+    @Schema(description = "Person hire date", examples = "2010-01-01")
+    LocalDate hireDate) {
 }

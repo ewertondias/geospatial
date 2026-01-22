@@ -1,3 +1,10 @@
 spring:
   application:
     name: geospatial
+
+salary:
+  min: 1302.00
+  initial: 1558.00
+  yearly-increase:
+    percentage: 1.18
+    value: 500.00

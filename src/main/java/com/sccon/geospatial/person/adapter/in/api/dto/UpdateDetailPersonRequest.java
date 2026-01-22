@@ -15,7 +15,7 @@ public record UpdateDetailPersonRequest(
     @JsonFormat(pattern = "yyyy-MM-dd")
     LocalDate birthDate,
 
-    @Schema(description = "Person admission date", examples = "2010-01-01")
+    @Schema(description = "Person hire date", examples = "2010-01-01")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    LocalDate admissionDate) {
+    LocalDate hireDate) {
 }

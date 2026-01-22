@@ -116,8 +116,7 @@ public interface PersonApiDoc {
                                              @Parameter(
                                                  description = "Output format for the age", required = true, in = ParameterIn.QUERY,
                                                  schema = @Schema(type = "string", example = "years", allowableValues = {"days", "months", "years"})
-                                             )
-                                             String output);
+                                             ) String output);
 
     @Operation(summary = "Get person salary",
         description = "Retrieves the salary of a person by their ID"
@@ -131,6 +130,10 @@ public interface PersonApiDoc {
         @ApiResponse(responseCode = "404", description = "Person not found", content = @Content(mediaType = "application/json")),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(mediaType = "application/json"))
     })
-    ResponseEntity<PersonSalaryResponse> getSalary(@Parameter(description = "Person id", required = true) Long id);
+    ResponseEntity<PersonSalaryResponse> getSalary(@Parameter(description = "Person id", required = true) Long id,
+                                                   @Parameter(
+                                                       description = "Output format for the salary", required = true, in = ParameterIn.QUERY,
+                                                       schema = @Schema(type = "string", example = "min", allowableValues = {"min", "full"})
+                                                   ) String output);
 
 }

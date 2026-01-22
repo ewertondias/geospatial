@@ -13,7 +13,7 @@ public final class PersonPersistenceAssembler {
             id,
             person.name(),
             person.birthDate().value(),
-            person.admissionDate().value()
+            person.hireDate().value()
         );
     }
 
@@ -22,7 +22,7 @@ public final class PersonPersistenceAssembler {
             entity.getId(),
             entity.getName(),
             entity.getBirthDate(),
-            entity.getAdmissionDate()
+            entity.getHireDate()
         );
     }
 

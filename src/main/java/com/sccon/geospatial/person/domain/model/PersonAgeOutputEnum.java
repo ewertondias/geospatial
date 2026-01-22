@@ -14,7 +14,7 @@ public enum PersonAgeOutputEnum {
                 return outputEnum;
             }
         }
-x
+
         throw new PersonAgeOutputInvalidException(value);
     }
 

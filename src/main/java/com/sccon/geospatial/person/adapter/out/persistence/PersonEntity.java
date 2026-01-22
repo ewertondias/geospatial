@@ -7,13 +7,13 @@ public class PersonEntity {
     private final Long id;
     private final String name;
     private final LocalDate birthDate;
-    private final LocalDate admissionDate;
+    private final LocalDate hireDate;
 
-    public PersonEntity(Long id, String name, LocalDate birthDate, LocalDate admissionDate) {
+    public PersonEntity(Long id, String name, LocalDate birthDate, LocalDate hireDate) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
-        this.admissionDate = admissionDate;
+        this.hireDate = hireDate;
     }
 
     public Long getId() {
@@ -28,8 +28,8 @@ public class PersonEntity {
         return birthDate;
     }
 
-    public LocalDate getAdmissionDate() {
-        return admissionDate;
+    public LocalDate getHireDate() {
+        return hireDate;
     }
 
 }

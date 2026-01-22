@@ -14,7 +14,7 @@ public final class PersonAssembler {
             request.id(),
             request.name(),
             request.birthDate(),
-            request.admissionDate()
+            request.hireDate()
         );
     }
 
@@ -23,7 +23,7 @@ public final class PersonAssembler {
             person.id().value(),
             person.name(),
             person.birthDate().value(),
-            person.admissionDate().value()
+            person.hireDate().value()
         );
     }
 

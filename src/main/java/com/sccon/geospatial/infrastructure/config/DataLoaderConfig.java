@@ -22,23 +22,23 @@ public class DataLoaderConfig {
                 1L,
                 "Bob Johnson",
                 LocalDate.of(1989, 5, 15),
-                LocalDate.of(1990, 8, 22)
+                LocalDate.of(2021, 8, 22)
             );
             createPerson.execute(person1);
 
             var person2 = new CreatePersonRequest(
                 2L,
                 "Charlie Brown",
-                LocalDate.of(2008, 11, 2),
-                LocalDate.of(1995, 1, 8)
+                LocalDate.of(1995, 11, 2),
+                LocalDate.of(2023, 1, 8)
             );
             createPerson.execute(person2);
 
             var person3 = new CreatePersonRequest(
                 3L,
                 "Alice Smith",
-                LocalDate.of(2000, 12, 5),
-                LocalDate.of(2002, 3, 18)
+                LocalDate.of(1990, 12, 5),
+                LocalDate.of(2024, 3, 18)
             );
             createPerson.execute(person3);
 

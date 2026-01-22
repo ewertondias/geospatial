@@ -1,40 +1,48 @@
 package com.sccon.geospatial.person.domain.model;
 
+import com.sccon.geospatial.person.domain.exception.PersonHireDateInvalidException;
+
 import java.time.LocalDate;
 
-public record Person(PersonId id, String name, PersonBirthDate birthDate, PersonAdmissionDate admissionDate) {
+public record Person(PersonId id, String name, PersonBirthDate birthDate, PersonHireDate hireDate) {
 
-    public static Person create(Long id, String name, LocalDate birthDate, LocalDate admissionDate) {
+    public Person {
+        if (hireDate.value().isBefore(birthDate.value())) {
+            throw new PersonHireDateInvalidException();
+        }
+    }
+
+    public static Person create(Long id, String name, LocalDate birthDate, LocalDate hireDate) {
         var personId = PersonId.of(id);
         var personBirthDate = PersonBirthDate.of(birthDate);
-        var personAdmissionDate = PersonAdmissionDate.of(admissionDate);
+        var personHireDate = PersonHireDate.of(hireDate);
 
         return new Person(
             personId,
             name,
             personBirthDate,
-            personAdmissionDate
+            personHireDate
         );
     }
 
-    public Person update(String name, LocalDate newBirthDate, LocalDate newAdmissionDate) {
+    public Person update(String name, LocalDate newBirthDate, LocalDate newHireDate) {
         var personBirthDate = PersonBirthDate.of(newBirthDate);
-        var personAdmissionDate = PersonAdmissionDate.of(newAdmissionDate);
+        var personHireDate = PersonHireDate.of(newHireDate);
 
         return new Person(
             this.id,
             name,
             personBirthDate,
-            personAdmissionDate
+            personHireDate
         );
     }
 
-    public Person updateDetail(String name, LocalDate newBirthDate, LocalDate newAdmissionDate) {
+    public Person updateDetail(String name, LocalDate newBirthDate, LocalDate newHireDate) {
         return new Person(
             this.id,
             name != null ? name : this.name,
             newBirthDate != null ? PersonBirthDate.of(newBirthDate) : this.birthDate,
-            newAdmissionDate != null ? PersonAdmissionDate.of(newAdmissionDate) : this.admissionDate
+            newHireDate != null ? PersonHireDate.of(newHireDate) : this.hireDate
         );
     }
 

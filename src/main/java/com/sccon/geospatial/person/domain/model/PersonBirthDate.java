@@ -10,6 +10,10 @@ public record PersonBirthDate(LocalDate value) {
         if (value == null) {
             throw new PersonBirthDateInvalidException();
         }
+
+        if (value.isAfter(LocalDate.now())) {
+            throw new PersonBirthDateInvalidException();
+        }
     }
 
     public static PersonBirthDate of(LocalDate value) {

@@ -12,6 +12,7 @@ import com.sccon.geospatial.person.application.DeletePersonUseCase;
 import com.sccon.geospatial.person.application.GetAllPersonUseCase;
 import com.sccon.geospatial.person.application.GetPersonAgeByIdUseCase;
 import com.sccon.geospatial.person.application.GetPersonByIdUseCase;
+import com.sccon.geospatial.person.application.GetPersonSalaryByIdUseCase;
 import com.sccon.geospatial.person.application.UpdatePersonDetailUseCase;
 import com.sccon.geospatial.person.application.UpdatePersonUseCase;
 import jakarta.validation.Valid;
@@ -41,8 +42,11 @@ public class PersonController implements PersonApiDoc {
     private final UpdatePersonDetailUseCase updatePersonDetail;
     private final GetPersonByIdUseCase getPerson;
     private final GetPersonAgeByIdUseCase getPersonAge;
+    private final GetPersonSalaryByIdUseCase getPersonSalary;
 
-    public PersonController(GetAllPersonUseCase getAllPerson, CreatePersonUseCase createPerson, DeletePersonUseCase deletePerson, UpdatePersonUseCase updatePerson, UpdatePersonDetailUseCase updatePersonDetail, GetPersonByIdUseCase getPerson, GetPersonAgeByIdUseCase getPersonAge) {
+    public PersonController(GetAllPersonUseCase getAllPerson, CreatePersonUseCase createPerson, DeletePersonUseCase deletePerson,
+                            UpdatePersonUseCase updatePerson, UpdatePersonDetailUseCase updatePersonDetail, GetPersonByIdUseCase getPerson,
+                            GetPersonAgeByIdUseCase getPersonAge, GetPersonSalaryByIdUseCase getPersonSalary) {
         this.getAllPerson = getAllPerson;
         this.createPerson = createPerson;
         this.deletePerson = deletePerson;
@@ -50,6 +54,7 @@ public class PersonController implements PersonApiDoc {
         this.updatePersonDetail = updatePersonDetail;
         this.getPerson = getPerson;
         this.getPersonAge = getPersonAge;
+        this.getPersonSalary = getPersonSalary;
     }
 
     @Override
@@ -117,8 +122,10 @@ public class PersonController implements PersonApiDoc {
 
     @Override
     @GetMapping("/{id}/salary")
-    public ResponseEntity<PersonSalaryResponse> getSalary(@PathVariable Long id) {
-        return null;
+    public ResponseEntity<PersonSalaryResponse> getSalary(@PathVariable Long id, @RequestParam String output) {
+        var personSalary = getPersonSalary.execute(id, output);
+
+        return ResponseEntity.ok(personSalary);
     }
 
 }

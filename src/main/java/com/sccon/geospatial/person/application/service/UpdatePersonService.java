@@ -24,7 +24,7 @@ public class UpdatePersonService implements UpdatePersonUseCase {
         var person = repository.findById(personId)
             .orElseThrow(() -> new PersonNotFoundException(personId.value().toString()));
 
-        var personToUpdate = person.update(request.name(), request.birthDate(), request.admissionDate());
+        var personToUpdate = person.update(request.name(), request.birthDate(), request.hireDate());
 
         var updatedPerson = repository.update(personToUpdate);
 
